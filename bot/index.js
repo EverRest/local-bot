@@ -2,23 +2,26 @@ const os = require('os');
 const express = require('express');
 const app = express();
 const redis = require('ioredis');
+const {appName, redisHost, redisPort} = require('./config');
+
 const redisClient = redis.createClient({
-    host: 'redis',
-    port: 6379
+    host: redisHost,
+    port: redisPort
 });
 
-app.get('/', function(req, res) {
-    redisClient.get('numVisits', function(err, numVisits) {
-        numVisitsToDisplay = parseInt(numVisits) + 1;
+app.get('/', function (req, res) {
+    redisClient.get('numVisits', function (err, numVisits) {
+        let numVisitsToDisplay = parseInt(numVisits) + 1;
         if (isNaN(numVisitsToDisplay)) {
             numVisitsToDisplay = 1;
         }
-        res.send(os.hostname() +': Number of visits is: ' + numVisitsToDisplay);
+        res.send(os.hostname() + ': Number of visits is: ' + numVisitsToDisplay);
         numVisits++;
         redisClient.set('numVisits', numVisits);
     });
 });
 
-app.listen(81, function() {
-    console.log('Web application is listening on port 80');
+app.listen(81, function () {
+    console.log(appName);
+    console.log(`${appName} is running on port 80`);
 });
