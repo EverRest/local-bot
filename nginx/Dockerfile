@@ -1,4 +1,4 @@
-FROM ubuntu:latest
-LABEL authors="yana"
+FROM nginx:1.21.6
 
-ENTRYPOINT ["top", "-b"]
+RUN rm /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf

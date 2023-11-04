@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="yana"
+FROM node:16-alpine
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /usr/src/app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . /usr/src/app
+
+CMD ["npm","start"]
