@@ -6,5 +6,14 @@ module.exports = {
     tgToken: process.env.TG_TOKEN,
     googleApiToken: process.env.GOOGLE_API_TOKEN,
     redisHost: process.env.REDIS_HOST,
-    redisPort: process.env.REDIS_PORT
+    redisPort: process.env.REDIS_PORT,
+    botSettings: {
+        polling: {
+            internal: 300,
+            // autoStart: true,
+            params: {
+                timeout: 10
+            }
+        }
+    }
 };
